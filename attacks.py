@@ -18,19 +18,12 @@ def create_dictionaries(data_list):
 		string1 = data_list.pop(0)
 
 		line = list(string1)	#get a line item
-		print(line)
 
 		ip_address = str(line.pop(0))  #use this as key
-		print(ip_address)
-		string2 = line.pop(0)
-		print(string2)
-		country_dictionary = {ip_address: string2}
-		string3 = line.pop(0)
-		print(string3)
-		count_attacks_dictionary = {ip_address: string3}
-		string4 = line.pop(0)
-		print(string4)
-		count_users_dictionary = {ip_address: string4}
+
+		country_dictionary = {ip_address: line.pop(0)}
+		count_attacks_dictionary = {ip_address: line.pop(0)}
+		count_users_dictionary = {ip_address: line.pop(0)}
 
 	dictionary_list = list()
 	dictionary_list.append(country_dictionary)
