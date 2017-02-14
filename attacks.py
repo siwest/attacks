@@ -9,27 +9,20 @@ def read_csv(file_name):
             result.append(order_set)
     return result[1:]
 
-def create_dictionaries(data_list):
-	N = len(data_list) -1
-	country_dictionary = []
-	count_attacks_dictionary = []
-	count_users_dictionary = []
-	while (data_list): 	#while data_list is not empty
-		string1 = data_list.pop(0)
-
-		line = list(string1)	#get a line item
-
-		ip_address = str(line.pop(0))  #use this as key
-
-		country_dictionary = {ip_address: line.pop(0)}
-		count_attacks_dictionary = {ip_address: line.pop(0)}
-		count_users_dictionary = {ip_address: line.pop(0)}
-
-	dictionary_list = list()
-	dictionary_list.append(country_dictionary)
-	dictionary_list.append(count_attacks_dictionary)
-	dictionary_list.append(count_users_dictionary)
-	return dictionary_list
+def parse_data(data_list):
+	ip_addresses = []
+	countries = []
+	count_attacks = []
+	count_users = []
+	for line in data_list:
+		# Assumes a valid, well-formed attacks file
+		ip_addresses.append(line[0])  
+		countries.append(line[1])
+		count_attacks.append(line[2])
+		count_users.append(line[3])
+	print (ip_addresses)
+	print(countries) 
+	return ip_addresses, countries, count_attacks, count_users
 
 
 def get_choice():
@@ -43,38 +36,36 @@ def get_choice():
 	return choice
 
 
-def get_dictionary_key_value(ip_input, dictionary):
-	value = ''
-	if (ip_input in dictionary):
-		value = dictionary[ip_input]
+def get_dictionary_key_value(ip_input, ip_addresses, option_list):
+	result = ''
+	if (ip_input in ip_addresses):
+		result = option_list[ip_addresses.index(ip_input)]
 	else:
 		print("There is no record of an attack attempt from that IP")
-	return value
+	return result
 
 
 def main():
 	data_list = read_csv('attacks.csv')
-	dictionary_list = create_dictionaries(data_list)
-	country_dictionary = dictionary_list.pop(0)
-	count_attacks_dictionary = dictionary_list.pop(0)
-	count_users_dictionary = dictionary_list.pop(0)
-
+	ip_addresses, countries, count_attacks, count_users = parse_data(data_list)
 	user_choice = get_choice()
-	value = ''
+	result = ''
+
 	if (user_choice == '1'):
 		ip_input = input("Enter an IP address: ")
-		value = get_dictionary_key_value(ip_input, country_dictionary)
+		result = get_dictionary_key_value(ip_input, ip_addresses, count_attacks)
 	if (user_choice == '2'):
 		ip_input = input("Enter an IP address: ")
-		value = get_dictionary_key_value(ip_input, count_attacks_dictionary)
+		result = get_dictionary_key_value(ip_input, ip_addresses, countries)
 	if (user_choice == '3'):
 		ip_input = input("Enter an IP address: ")
-		value = get_dictionary_key_value(ip_input, count_users_dictionary)
+		result = get_dictionary_key_value(ip_input, ip_addresses, count_users)
 	if (user_choice == '4'):
 		sys.exit(0)
 
 
-	print(value)
+
+	print(result)
 
 if __name__ == "__main__":
     main()
