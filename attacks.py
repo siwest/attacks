@@ -1,7 +1,7 @@
 import sys
 
 def read_csv(file_name):
-    """Read a csv file that lists possible transactions"""
+    """Read a csv file that lists attack information"""
     dict = {}
     with open(file_name, 'r') as file_reader:
         for line in file_reader:
@@ -31,7 +31,7 @@ def main():
 		sys.exit(0)
 
 	ip_address = input("Enter an IP address: ")
-	result = 0
+	
 	if ip_address in dict:
 		print(dict[ip_address][int(user_choice) - 1])
 	else:
