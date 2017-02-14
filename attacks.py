@@ -2,23 +2,12 @@ import sys
 
 def read_csv(file_name):
     """Read a csv file that lists possible transactions"""
-    result = list()
+    dict = {}
     with open(file_name, 'r') as file_reader:
         for line in file_reader:
-            order_set = list(line.strip().split(','))
-            result.append(order_set)
-    return result[1:]
-
-def parse_data(data_list):
-	dict = {}
-	ip_addresses = []
-	countries = []
-	count_attacks = []
-	count_users = []
-	for line in data_list:
-		# dict[ip_address] = country, count_attack, count_users
-		dict[line[0]] = [line[1], line[2], line[3]]
-	return dict
+        	line = line.strip().split(',')
+        	dict[line[0]] = [line[1], line[2], line[3]]
+    return dict
 
 
 def get_choice():
@@ -35,8 +24,7 @@ def get_choice():
 
 
 def main():
-	data_list = read_csv('attacks.csv')
-	dict = parse_data(data_list)
+	dict = read_csv('attacks.csv')
 	user_choice = get_choice()
 
 	if (user_choice == 4):
