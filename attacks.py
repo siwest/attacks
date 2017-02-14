@@ -2,8 +2,8 @@
 Solution by Sarah West
 completed for NJIT CS645-851
 
-Reads IP Addresses and attack information from a CSV file,
-and returns attack information requested by user.
+Reads IP Addresses and attack information read from a CSV file,
+and returns the information requested by user.
 '''
 import sys
 
@@ -27,7 +27,7 @@ def get_choice():
 	(4) Quit
 
 	Please make a choice: """)
-	if not (choice in ["1", "2", "3", "4"]):
+	if choice not in ["1", "2", "3", "4"]:
 		choice = get_choice()
 	return int(choice)
 
